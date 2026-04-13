@@ -558,8 +558,8 @@ Contributions are welcome! Here's how to help:
 ## 💬 Support & Feedback
 
 - 📧 **Email:** support@skillgapanalyzer.com
-- 🐛 **Issues:** [Report bugs](https://github.com/yourusername/skill-gap-analyzer/issues)
-- 💡 **Discussions:** [Feature requests & ideas](https://github.com/yourusername/skill-gap-analyzer/discussions)
+- 🐛 **Issues:** [Report bugs](https://github.com/sujith-sakthivel04/skill-gap-analyzer/issues)
+- 💡 **Discussions:** [Feature requests & ideas](https://github.com/sujith-sakthivel04/skill-gap-analyzer/discussions)
 
 ---
 
@@ -568,5 +568,3 @@ Contributions are welcome! Here's how to help:
 If this project helps you, please give it a star! ⭐
 
 ---
-
-**Made with ❤️ by the AI-Driven Skills Team**
