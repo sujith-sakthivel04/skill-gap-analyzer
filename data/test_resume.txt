@@ -1,0 +1,1 @@
+I am a software developer with 3 years of experience. I am highly proficient in Python and writing complex SQL queries for PostgreSQL databases. I have used AWS to deploy applications, but I am looking to transition into data science. I know some basic Statistics, but I have not worked with models yet.

@@ -1,0 +1,19 @@
+# FastAPI Web Framework
+fastapi==0.104.1
+uvicorn==0.24.0
+
+# Database
+sqlalchemy==2.0.23
+psycopg2-binary==2.9.9
+
+# NLP & Text Processing
+spacy==3.7.2
+pdfplumber==0.10.3
+
+# API Utilities
+python-multipart==0.0.6
+fastapi-cors==0.0.6
+
+# Development (optional)
+pytest==7.4.3
+pytest-asyncio==0.21.1

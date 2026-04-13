@@ -1,0 +1,27 @@
+{
+  "roles": [
+    {
+      "role": "Data Scientist",
+      "core_skills": [
+        "Python",
+        "SQL",
+        "Statistics",
+        "Linear Algebra",
+        "Calculus"
+      ],
+      "advanced_skills": [
+        "Machine Learning",
+        "Deep Learning",
+        "Dimensionality Reduction",
+        "Model Evaluation"
+      ],
+      "tools_and_libraries": [
+        "Pandas",
+        "NumPy",
+        "Scikit-Learn",
+        "PostgreSQL",
+        "AWS"
+      ]
+    }
+  ]
+}

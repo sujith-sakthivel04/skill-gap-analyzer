@@ -1,0 +1,32 @@
+{
+  "dependencies": [
+    {
+      "skill": "Pandas",
+      "prerequisites": ["Python"]
+    },
+    {
+      "skill": "NumPy",
+      "prerequisites": ["Python", "Linear Algebra"]
+    },
+    {
+      "skill": "Scikit-Learn",
+      "prerequisites": ["Python", "Pandas", "NumPy"]
+    },
+    {
+      "skill": "Machine Learning",
+      "prerequisites": ["Python", "Statistics", "Linear Algebra"]
+    },
+    {
+      "skill": "Model Evaluation",
+      "prerequisites": ["Machine Learning", "Statistics"]
+    },
+    {
+      "skill": "Dimensionality Reduction",
+      "prerequisites": ["Linear Algebra", "Machine Learning"]
+    },
+    {
+      "skill": "Deep Learning",
+      "prerequisites": ["Machine Learning", "Calculus"]
+    }
+  ]
+}
