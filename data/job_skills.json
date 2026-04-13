@@ -1,26 +1,603 @@
 {
   "roles": [
     {
-      "role": "Data Scientist",
+      "name": "Data Scientist",
       "core_skills": [
-        "Python",
-        "SQL",
-        "Statistics",
-        "Linear Algebra",
-        "Calculus"
+        "Python", "SQL", "Statistics", "Linear Algebra", "Calculus"
       ],
       "advanced_skills": [
-        "Machine Learning",
-        "Deep Learning",
-        "Dimensionality Reduction",
-        "Model Evaluation"
+        "Machine Learning", "Deep Learning", "Dimensionality Reduction", "Model Evaluation"
       ],
       "tools_and_libraries": [
-        "Pandas",
-        "NumPy",
-        "Scikit-Learn",
-        "PostgreSQL",
-        "AWS"
+        "Pandas", "NumPy", "Scikit-Learn", "PostgreSQL", "AWS"
+      ]
+    },
+    {
+      "name": "ML Engineer",
+      "core_skills": [
+        "Python", "Algorithms", "Data Structures", "Statistics", "Software Engineering"
+      ],
+      "advanced_skills": [
+        "Deep Learning", "Model Deployment", "MLOps", "Distributed Computing"
+      ],
+      "tools_and_libraries": [
+        "TensorFlow", "PyTorch", "Docker", "Kubernetes", "MLflow"
+      ]
+    },
+    {
+      "name": "Frontend Developer",
+      "core_skills": [
+        "HTML", "CSS", "JavaScript", "Responsive Design", "Web Accessibility"
+      ],
+      "advanced_skills": [
+        "Single Page Applications", "State Management", "Performance Optimization", "WebSockets"
+      ],
+      "tools_and_libraries": [
+        "React", "Vue.js", "Tailwind CSS", "Webpack", "Vite"
+      ]
+    },
+    {
+      "name": "Backend Developer",
+      "core_skills": [
+        "Python", "Java", "Database Design", "API Development", "System Architecture"
+      ],
+      "advanced_skills": [
+        "Microservices", "Concurrency", "Message Queues", "Caching Strategies"
+      ],
+      "tools_and_libraries": [
+        "Node.js", "Django", "Spring Boot", "PostgreSQL", "Redis"
+      ]
+    },
+    {
+      "name": "DevOps Engineer",
+      "core_skills": [
+        "Linux", "Scripting", "Networking", "Continuous Integration", "Continuous Deployment"
+      ],
+      "advanced_skills": [
+        "Infrastructure as Code", "Container Orchestration", "Monitoring and Alerting", "Security Operations"
+      ],
+      "tools_and_libraries": [
+        "Jenkins", "GitLab CI", "Terraform", "Docker", "Kubernetes", "Prometheus"
+      ]
+    },
+    {
+      "name": "Full Stack Developer",
+      "core_skills": [
+        "JavaScript", "HTML", "CSS", "Database Management", "API Design"
+      ],
+      "advanced_skills": [
+        "System Design", "Cloud Deployment", "Authentication/Authorization", "Serverless Architecture"
+      ],
+      "tools_and_libraries": [
+        "React", "Node.js", "Express", "MongoDB", "PostgreSQL", "AWS"
+      ]
+    },
+    {
+      "name": "Data Analyst",
+      "core_skills": [
+        "SQL", "Excel", "Data Cleaning", "Data Visualization", "Descriptive Statistics"
+      ],
+      "advanced_skills": [
+        "Predictive Modeling", "A/B Testing", "Data Storytelling", "Dashboard Design"
+      ],
+      "tools_and_libraries": [
+        "Tableau", "Power BI", "Pandas", "Google Analytics", "Looker"
+      ]
+    },
+    {
+      "name": "Cloud / Solutions Architect",
+      "core_skills": [
+        "Cloud Computing", "Network Architecture", "Security Design", "System Integration", "Scalability"
+      ],
+      "advanced_skills": [
+        "Disaster Recovery", "Hybrid Cloud Operations", "Cost Optimization", "Enterprise Architecture"
+      ],
+      "tools_and_libraries": [
+        "AWS", "Azure", "Google Cloud Platform", "Terraform", "Ansible"
+      ]
+    },
+    {
+      "name": "Cybersecurity Analyst",
+      "core_skills": [
+        "Network Security", "Risk Assessment", "Cryptography", "Incident Response", "Vulnerability Management"
+      ],
+      "advanced_skills": [
+        "Penetration Testing", "Threat Hunting", "Forensics", "Security Information and Event Management (SIEM)"
+      ],
+      "tools_and_libraries": [
+        "Wireshark", "Metasploit", "Nmap", "Splunk", "Burp Suite"
+      ]
+    },
+    {
+      "name": "Product Manager (Technical)",
+      "core_skills": [
+        "Agile Methodologies", "Product Strategy", "User Research", "Data Analysis", "Technical Communication"
+      ],
+      "advanced_skills": [
+        "Go-to-Market Strategy", "Roadmap Planning", "Prototyping", "A/B Testing"
+      ],
+      "tools_and_libraries": [
+        "Jira", "Confluence", "Figma", "Mixpanel", "Trello"
+      ]
+    },
+    {
+      "name": "MLOps Engineer",
+      "core_skills": [
+        "Python", "Linux", "Cloud Computing", "Continuous Integration", "Continuous Deployment"
+      ],
+      "advanced_skills": [
+        "Model Deployment", "Feature Store Design", "Model Monitoring", "ML Platform Engineering"
+      ],
+      "tools_and_libraries": [
+        "MLflow", "Kubeflow", "Docker", "Kubernetes", "Terraform"
+      ]
+    },
+    {
+      "name": "NLP Engineer",
+      "core_skills": [
+        "Python", "Machine Learning", "Linguistics", "Text Processing", "Statistics"
+      ],
+      "advanced_skills": [
+        "Transformer Architectures", "Named Entity Recognition", "Information Retrieval", "Prompt Engineering"
+      ],
+      "tools_and_libraries": [
+        "Hugging Face Transformers", "spaCy", "NLTK", "PyTorch", "OpenAI API"
+      ]
+    },
+    {
+      "name": "Computer Vision Engineer",
+      "core_skills": [
+        "Python", "Linear Algebra", "Calculus", "Image Processing", "Machine Learning"
+      ],
+      "advanced_skills": [
+        "Object Detection", "Image Segmentation", "Model Quantization", "Multi-Object Tracking"
+      ],
+      "tools_and_libraries": [
+        "OpenCV", "PyTorch", "TensorFlow", "ONNX", "CUDA"
+      ]
+    },
+    {
+      "name": "Generative AI Engineer",
+      "core_skills": [
+        "Python", "Machine Learning", "Deep Learning", "Software Engineering", "API Development"
+      ],
+      "advanced_skills": [
+        "Large Language Models", "Retrieval Augmented Generation", "Fine-Tuning", "AI Safety"
+      ],
+      "tools_and_libraries": [
+        "LangChain", "LlamaIndex", "Hugging Face Transformers", "OpenAI API", "Weights & Biases"
+      ]
+    },
+    {
+      "name": "AI Research Engineer",
+      "core_skills": [
+        "Python", "Linear Algebra", "Probability", "Optimization", "Scientific Computing"
+      ],
+      "advanced_skills": [
+        "Neural Architecture Search", "Self-Supervised Learning", "Multi-Modal Learning", "Experiment Design"
+      ],
+      "tools_and_libraries": [
+        "PyTorch", "JAX", "NumPy", "Weights & Biases", "Ray"
+      ]
+    },
+    {
+      "name": "Reinforcement Learning Engineer",
+      "core_skills": [
+        "Python", "Probability", "Linear Algebra", "Machine Learning", "Control Theory"
+      ],
+      "advanced_skills": [
+        "Policy Optimization", "Offline Reinforcement Learning", "Reward Modeling", "Multi-Agent Systems"
+      ],
+      "tools_and_libraries": [
+        "PyTorch", "Ray RLlib", "Gymnasium", "Stable-Baselines3", "Weights & Biases"
+      ]
+    },
+    {
+      "name": "Data Engineer",
+      "core_skills": [
+        "Python", "SQL", "Data Modeling", "ETL Design", "Distributed Systems"
+      ],
+      "advanced_skills": [
+        "Batch Processing", "Stream Processing", "Data Lake Architecture", "Workflow Orchestration"
+      ],
+      "tools_and_libraries": [
+        "Apache Spark", "Apache Airflow", "dbt", "Kafka", "Snowflake"
+      ]
+    },
+    {
+      "name": "Analytics Engineer",
+      "core_skills": [
+        "SQL", "Data Modeling", "Business Intelligence", "Data Quality", "Stakeholder Communication"
+      ],
+      "advanced_skills": [
+        "Semantic Layer Design", "Metric Governance", "Data Transformation Engineering", "Experiment Analysis"
+      ],
+      "tools_and_libraries": [
+        "dbt", "Looker", "BigQuery", "Tableau", "Git"
+      ]
+    },
+    {
+      "name": "Big Data Engineer",
+      "core_skills": [
+        "Java", "Scala", "Distributed Systems", "Data Modeling", "Linux"
+      ],
+      "advanced_skills": [
+        "Distributed Data Processing", "Data Partitioning Strategies", "Cluster Performance Tuning", "Fault-Tolerant Pipelines"
+      ],
+      "tools_and_libraries": [
+        "Apache Spark", "Hadoop", "Kafka", "Hive", "Presto"
+      ]
+    },
+    {
+      "name": "Database Administrator",
+      "core_skills": [
+        "SQL", "Database Design", "Linux", "Backup and Recovery", "Performance Tuning"
+      ],
+      "advanced_skills": [
+        "Replication Strategies", "High Availability Design", "Query Optimization", "Disaster Recovery Planning"
+      ],
+      "tools_and_libraries": [
+        "PostgreSQL", "MySQL", "Oracle Database", "pgAdmin", "Percona Toolkit"
+      ]
+    },
+    {
+      "name": "Site Reliability Engineer",
+      "core_skills": [
+        "Linux", "Networking", "Scripting", "Cloud Computing", "System Administration"
+      ],
+      "advanced_skills": [
+        "Service Level Objectives", "Incident Management", "Capacity Planning", "Reliability Engineering"
+      ],
+      "tools_and_libraries": [
+        "Kubernetes", "Prometheus", "Grafana", "Terraform", "PagerDuty"
+      ]
+    },
+    {
+      "name": "Platform Engineer",
+      "core_skills": [
+        "Linux", "Cloud Computing", "API Development", "Infrastructure as Code", "Developer Experience"
+      ],
+      "advanced_skills": [
+        "Internal Developer Platforms", "Golden Path Engineering", "Policy as Code", "Platform Observability"
+      ],
+      "tools_and_libraries": [
+        "Kubernetes", "Terraform", "Backstage", "Argo CD", "Helm"
+      ]
+    },
+    {
+      "name": "Cloud Security Engineer",
+      "core_skills": [
+        "Cloud Computing", "Network Security", "Identity and Access Management", "Risk Assessment", "Security Design"
+      ],
+      "advanced_skills": [
+        "Cloud Threat Modeling", "Cloud Security Posture Management", "Container Security", "Zero Trust Architecture"
+      ],
+      "tools_and_libraries": [
+        "AWS Security Hub", "Microsoft Defender for Cloud", "Wiz", "Terraform", "Falco"
+      ]
+    },
+    {
+      "name": "Cloud Network Engineer",
+      "core_skills": [
+        "Networking", "Cloud Computing", "Routing and Switching", "Network Security", "Troubleshooting"
+      ],
+      "advanced_skills": [
+        "Hybrid Connectivity Design", "Load Balancing Architecture", "Network Automation", "Service Mesh Networking"
+      ],
+      "tools_and_libraries": [
+        "AWS VPC", "Azure Virtual Network", "Google Cloud VPC", "Terraform", "Ansible"
+      ]
+    },
+    {
+      "name": "Solutions Engineer",
+      "core_skills": [
+        "System Architecture", "API Development", "Technical Communication", "Requirements Analysis", "Cloud Computing"
+      ],
+      "advanced_skills": [
+        "Solution Design Workshops", "Proof of Concept Delivery", "Enterprise Integration Patterns", "Technical Discovery"
+      ],
+      "tools_and_libraries": [
+        "Postman", "Swagger", "AWS", "Docker", "Jira"
+      ]
+    },
+    {
+      "name": "Security Engineer",
+      "core_skills": [
+        "Network Security", "Cryptography", "Security Design", "Incident Response", "Vulnerability Management"
+      ],
+      "advanced_skills": [
+        "Secure Architecture Review", "Security Automation", "Threat Modeling", "SIEM Engineering"
+      ],
+      "tools_and_libraries": [
+        "Splunk", "Wireshark", "Nmap", "Burp Suite", "CrowdStrike"
+      ]
+    },
+    {
+      "name": "Application Security Engineer",
+      "core_skills": [
+        "Secure Coding", "Web Security", "Threat Modeling", "API Security", "Software Engineering"
+      ],
+      "advanced_skills": [
+        "Secure SDLC", "Static Application Security Testing", "Dynamic Application Security Testing", "Software Composition Analysis"
+      ],
+      "tools_and_libraries": [
+        "OWASP ZAP", "Burp Suite", "Semgrep", "Snyk", "SonarQube"
+      ]
+    },
+    {
+      "name": "Penetration Tester",
+      "core_skills": [
+        "Network Security", "Web Security", "Scripting", "Operating Systems", "Vulnerability Assessment"
+      ],
+      "advanced_skills": [
+        "Exploit Development", "Red Team Operations", "Privilege Escalation", "Post-Exploitation"
+      ],
+      "tools_and_libraries": [
+        "Metasploit", "Nmap", "Burp Suite", "Wireshark", "Kali Linux"
+      ]
+    },
+    {
+      "name": "SOC Analyst",
+      "core_skills": [
+        "Incident Response", "Threat Detection", "Log Analysis", "Network Security", "Security Operations"
+      ],
+      "advanced_skills": [
+        "SIEM Tuning", "Threat Hunting", "Digital Forensics", "Security Automation Playbooks"
+      ],
+      "tools_and_libraries": [
+        "Splunk", "Microsoft Sentinel", "Elastic Security", "CrowdStrike", "TheHive"
+      ]
+    },
+    {
+      "name": "Incident Response Engineer",
+      "core_skills": [
+        "Incident Response", "Forensics", "Network Security", "System Administration", "Technical Communication"
+      ],
+      "advanced_skills": [
+        "Malware Analysis", "Containment and Eradication", "Breach Recovery", "Security Incident Leadership"
+      ],
+      "tools_and_libraries": [
+        "Velociraptor", "Wireshark", "Splunk", "Volatility", "Cortex XSOAR"
+      ]
+    },
+    {
+      "name": "Threat Intelligence Analyst",
+      "core_skills": [
+        "Cyber Threat Intelligence", "OSINT", "Network Security", "Incident Response", "Risk Assessment"
+      ],
+      "advanced_skills": [
+        "Adversary Emulation", "Threat Actor Profiling", "Intelligence Correlation", "Detection Engineering"
+      ],
+      "tools_and_libraries": [
+        "MISP", "VirusTotal", "Maltego", "Splunk", "Recorded Future"
+      ]
+    },
+    {
+      "name": "IAM Engineer",
+      "core_skills": [
+        "Identity and Access Management", "Security Design", "Directory Services", "Authentication Protocols", "Cloud Computing"
+      ],
+      "advanced_skills": [
+        "Role-Based Access Control Design", "Federation Architecture", "Privileged Access Management", "Identity Governance"
+      ],
+      "tools_and_libraries": [
+        "Okta", "Azure AD", "Keycloak", "Ping Identity", "CyberArk"
+      ]
+    },
+    {
+      "name": "iOS Developer",
+      "core_skills": [
+        "Swift", "Object-Oriented Programming", "Mobile UI Design", "API Development", "Testing"
+      ],
+      "advanced_skills": [
+        "Swift Concurrency", "Performance Profiling", "Offline Data Synchronization", "App Store Release Engineering"
+      ],
+      "tools_and_libraries": [
+        "Xcode", "SwiftUI", "UIKit", "Core Data", "Fastlane"
+      ]
+    },
+    {
+      "name": "Android Developer",
+      "core_skills": [
+        "Kotlin", "Object-Oriented Programming", "Mobile UI Design", "API Development", "Testing"
+      ],
+      "advanced_skills": [
+        "Jetpack Architecture", "Dependency Injection", "Performance Optimization", "App Security Hardening"
+      ],
+      "tools_and_libraries": [
+        "Android Studio", "Jetpack Compose", "Kotlin Coroutines", "Dagger Hilt", "Room"
+      ]
+    },
+    {
+      "name": "Mobile Application Developer",
+      "core_skills": [
+        "JavaScript", "Mobile UI Design", "API Integration", "State Management", "Debugging"
+      ],
+      "advanced_skills": [
+        "Cross-Platform Architecture", "Push Notification Systems", "Mobile Performance Optimization", "Offline-First App Design"
+      ],
+      "tools_and_libraries": [
+        "React Native", "Flutter", "Expo", "Firebase", "Redux"
+      ]
+    },
+    {
+      "name": "Blockchain Engineer",
+      "core_skills": [
+        "Distributed Systems", "Cryptography", "Algorithms", "Networking", "Software Engineering"
+      ],
+      "advanced_skills": [
+        "Consensus Mechanisms", "Token Economics", "Blockchain Interoperability", "Layer 2 Scaling"
+      ],
+      "tools_and_libraries": [
+        "Ethereum", "Solidity", "Hardhat", "Foundry", "IPFS"
+      ]
+    },
+    {
+      "name": "Smart Contract Engineer",
+      "core_skills": [
+        "Solidity", "Cryptography", "Blockchain Fundamentals", "Testing", "Security Best Practices"
+      ],
+      "advanced_skills": [
+        "Smart Contract Security Auditing", "Gas Optimization", "Upgradeable Contract Patterns", "DeFi Protocol Engineering"
+      ],
+      "tools_and_libraries": [
+        "Hardhat", "Foundry", "OpenZeppelin", "Slither", "Ethers.js"
+      ]
+    },
+    {
+      "name": "Embedded Systems Engineer",
+      "core_skills": [
+        "C", "C++", "Computer Architecture", "Electronics Fundamentals", "Real-Time Systems"
+      ],
+      "advanced_skills": [
+        "Microcontroller Firmware Design", "Board Bring-Up", "Hardware-Software Co-Design", "Device Driver Development"
+      ],
+      "tools_and_libraries": [
+        "FreeRTOS", "STM32CubeIDE", "JTAG", "GDB", "CMake"
+      ]
+    },
+    {
+      "name": "Firmware Engineer",
+      "core_skills": [
+        "C", "Embedded C", "Microcontrollers", "Debugging", "Version Control"
+      ],
+      "advanced_skills": [
+        "Bootloader Development", "Power Optimization", "Low-Level Driver Development", "Embedded Security"
+      ],
+      "tools_and_libraries": [
+        "Zephyr", "FreeRTOS", "OpenOCD", "Segger J-Link", "CMake"
+      ]
+    },
+    {
+      "name": "Robotics Software Engineer",
+      "core_skills": [
+        "Python", "C++", "Linear Algebra", "Control Theory", "Algorithms"
+      ],
+      "advanced_skills": [
+        "Robot Perception", "Motion Planning", "Sensor Fusion", "Simultaneous Localization and Mapping"
+      ],
+      "tools_and_libraries": [
+        "ROS 2", "Gazebo", "OpenCV", "MoveIt", "PyTorch"
+      ]
+    },
+    {
+      "name": "AR/VR Developer",
+      "core_skills": [
+        "C#", "3D Mathematics", "Computer Graphics", "Interaction Design", "Performance Optimization"
+      ],
+      "advanced_skills": [
+        "Spatial Computing", "Real-Time Rendering Optimization", "XR Interaction Systems", "Multi-User XR Networking"
+      ],
+      "tools_and_libraries": [
+        "Unity", "Unreal Engine", "OpenXR", "ARKit", "ARCore"
+      ]
+    },
+    {
+      "name": "Game Developer",
+      "core_skills": [
+        "C++", "C#", "Algorithms", "Object-Oriented Programming", "Linear Algebra"
+      ],
+      "advanced_skills": [
+        "Game Physics", "AI for Games", "Rendering Pipelines", "Multiplayer Systems"
+      ],
+      "tools_and_libraries": [
+        "Unity", "Unreal Engine", "DirectX", "Blender", "Git"
+      ]
+    },
+    {
+      "name": "QA Automation Engineer",
+      "core_skills": [
+        "Testing Fundamentals", "Python", "JavaScript", "API Testing", "Continuous Integration"
+      ],
+      "advanced_skills": [
+        "Test Framework Architecture", "End-to-End Test Automation", "Contract Testing", "Performance Testing"
+      ],
+      "tools_and_libraries": [
+        "Selenium", "Playwright", "Cypress", "Postman", "JUnit"
+      ]
+    },
+    {
+      "name": "Performance Test Engineer",
+      "core_skills": [
+        "Testing Fundamentals", "API Development", "System Architecture", "Scripting", "Monitoring and Alerting"
+      ],
+      "advanced_skills": [
+        "Load Testing Strategy", "Capacity Benchmarking", "Bottleneck Analysis", "Scalability Validation"
+      ],
+      "tools_and_libraries": [
+        "k6", "JMeter", "Gatling", "Prometheus", "Grafana"
+      ]
+    },
+    {
+      "name": "Staff Software Engineer",
+      "core_skills": [
+        "Software Engineering", "System Design", "Code Review", "Mentorship", "Technical Communication"
+      ],
+      "advanced_skills": [
+        "Architectural Decision Making", "Cross-Team Technical Leadership", "Scalability Engineering", "Engineering Standards"
+      ],
+      "tools_and_libraries": [
+        "Git", "Docker", "Kubernetes", "PostgreSQL", "Datadog"
+      ]
+    },
+    {
+      "name": "Engineering Manager",
+      "core_skills": [
+        "People Management", "Project Planning", "Technical Communication", "Software Engineering", "Agile Methodologies"
+      ],
+      "advanced_skills": [
+        "Team Topology Design", "Delivery Management", "Technical Strategy", "Hiring and Coaching"
+      ],
+      "tools_and_libraries": [
+        "Jira", "Confluence", "GitHub", "Linear", "Slack"
+      ]
+    },
+    {
+      "name": "Technical Program Manager",
+      "core_skills": [
+        "Program Management", "Stakeholder Management", "Risk Management", "Technical Communication", "System Thinking"
+      ],
+      "advanced_skills": [
+        "Cross-Functional Delivery", "Dependency Management", "Operational Excellence", "Executive Reporting"
+      ],
+      "tools_and_libraries": [
+        "Jira", "Confluence", "Smartsheet", "Miro", "Asana"
+      ]
+    },
+    {
+      "name": "Enterprise Architect",
+      "core_skills": [
+        "System Architecture", "Enterprise Architecture", "Cloud Computing", "Security Design", "System Integration"
+      ],
+      "advanced_skills": [
+        "Architecture Governance", "Technology Modernization", "Domain-Driven Design", "Reference Architecture Design"
+      ],
+      "tools_and_libraries": [
+        "AWS", "Azure", "TOGAF", "Archi", "Terraform"
+      ]
+    },
+    {
+      "name": "Principal Data Engineer",
+      "core_skills": [
+        "Python", "SQL", "Data Modeling", "Distributed Systems", "System Design"
+      ],
+      "advanced_skills": [
+        "Data Platform Strategy", "Streaming Data Architecture", "Data Governance", "Scalable Pipeline Design"
+      ],
+      "tools_and_libraries": [
+        "Apache Spark", "Kafka", "Apache Airflow", "Snowflake", "dbt"
+      ]
+    },
+    {
+      "name": "AI Product Manager",
+      "core_skills": [
+        "Product Strategy", "Data Analysis", "Machine Learning Fundamentals", "User Research", "Technical Communication"
+      ],
+      "advanced_skills": [
+        "AI Product Discovery", "Model Performance Tradeoff Analysis", "Responsible AI Governance", "Experimentation Strategy"
+      ],
+      "tools_and_libraries": [
+        "Jira", "Confluence", "Amplitude", "Figma", "Looker"
       ]
     }
   ]
