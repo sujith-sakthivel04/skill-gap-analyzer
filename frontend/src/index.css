@@ -1,3 +1,67 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --color-page: #fffaf0;
+  --color-surface: rgba(255, 255, 255, 0.88);
+  --color-surface-strong: #ffffff;
+  --color-ink: #1c1917;
+  --color-ink-soft: #292524;
+  --color-muted: #57534e;
+  --color-line: rgba(120, 113, 108, 0.18);
+  --color-line-strong: rgba(245, 158, 11, 0.35);
+  --color-accent: #f4b233;
+  --color-accent-strong: #b45309;
+  --color-accent-soft: rgba(245, 158, 11, 0.24);
+  --color-accent-faint: rgba(252, 211, 77, 0.18);
+  --color-button-ink: #23160a;
+  --shadow-soft: 0 30px 90px -55px rgba(68, 64, 60, 0.4);
+  --shadow-card: 0 18px 40px -28px rgba(68, 64, 60, 0.28);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--color-page);
+  color: var(--color-ink);
+  font-family: "Segoe UI", "Trebuchet MS", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: rgba(245, 158, 11, 0.26);
+  color: var(--color-ink);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.font-display {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  letter-spacing: -0.03em;
+}

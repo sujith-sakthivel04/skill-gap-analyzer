@@ -1,5 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import SkillPath from './SkillPath';
+import { startTransition, useEffect, useRef, useState } from 'react';
+import HeroSection from './components/HeroSection';
+import OrbitalSkillViewer from './components/OrbitalSkillViewer';
+import SkillRoadmap from './components/SkillRoadmap';
+import FooterSection from './components/FooterSection';
 
 function App() {
   const [roles, setRoles] = useState([]);
@@ -9,24 +12,46 @@ function App() {
   const [file, setFile] = useState(null);
   const [roadmapData, setRoadmapData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [activeCategory, setActiveCategory] = useState(null);
+  const [selectedSkill, setSelectedSkill] = useState('');
+  const [skillDetails, setSkillDetails] = useState(null);
+  const [isDetailsLoading, setIsDetailsLoading] = useState(false);
+  const [detailsError, setDetailsError] = useState('');
 
-  // Fetch available roles when the app loads
+  const skillViewerRef = useRef(null);
+  const roadmapRef = useRef(null);
+
   useEffect(() => {
     fetch('http://localhost:8000/roles')
       .then((res) => res.json())
       .then((data) => {
         setRoles(data.roles || []);
-        if (data.roles && data.roles.length > 0) {
-          setSelectedRole(data.roles[0]);
-          setRoleQuery(data.roles[0]);
-        }
       })
-      .catch((err) => console.error("Error fetching roles:", err));
+      .catch((err) => console.error('Error fetching roles:', err));
   }, []);
 
-  const filteredRoles = roles.filter((role) =>
-    role.toLowerCase().includes(roleQuery.toLowerCase())
-  );
+  useEffect(() => {
+    if (!roadmapData) {
+      return;
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      const element = skillViewerRef.current;
+      if (!element) {
+        return;
+      }
+
+      const top = window.scrollY + element.getBoundingClientRect().top - 20;
+      window.scrollTo({
+        top: Math.max(top, 0),
+        behavior: 'smooth',
+      });
+    }, 120);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [roadmapData]);
+
+  const filteredRoles = roles.filter((role) => role.toLowerCase().includes(roleQuery.toLowerCase()));
 
   const handleRoleSelect = (role) => {
     setSelectedRole(role);
@@ -34,21 +59,37 @@ function App() {
     setIsRoleDropdownOpen(false);
   };
 
+  const applySelectedFile = (nextFile) => {
+    if (!nextFile) {
+      return;
+    }
+
+    const isPdfFile =
+      nextFile.type === 'application/pdf' || nextFile.name?.toLowerCase().endsWith('.pdf');
+
+    if (!isPdfFile) {
+      alert('Please upload a PDF resume.');
+      return;
+    }
+
+    setFile(nextFile);
+  };
+
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
+    applySelectedFile(e.target.files?.[0]);
   };
 
   const handleAnalyze = async (e) => {
     e.preventDefault();
     if (!file || !selectedRole) {
-      alert("Please upload a resume and select a role.");
+      alert('Please upload a resume and select a role.');
       return;
     }
 
     setIsLoading(true);
     const formData = new FormData();
-    formData.append("file", file);
-    formData.append("role", selectedRole);
+    formData.append('file', file);
+    formData.append('role', selectedRole);
 
     try {
       const response = await fetch('http://localhost:8000/analyze-resume', {
@@ -57,13 +98,13 @@ function App() {
       });
 
       if (!response.ok) {
-        let errorMessage = "Failed to analyze resume. Please try again.";
+        let errorMessage = 'Failed to analyze resume. Please try again.';
         try {
           const errorData = await response.json();
           if (errorData?.detail) {
             errorMessage = errorData.detail;
           }
-        } catch (_err) {
+        } catch {
           // Fallback to default message when response body is not JSON.
         }
         alert(errorMessage);
@@ -71,90 +112,126 @@ function App() {
       }
 
       const data = await response.json();
-      console.log("BACKEND RESPONSE:", data);
-      setRoadmapData(data); // This saves the backend data to state
+      console.log('BACKEND RESPONSE:', data);
+      startTransition(() => {
+        setRoadmapData(data);
+        setActiveCategory(null);
+        setSelectedSkill('');
+        setSkillDetails(null);
+        setDetailsError('');
+      });
     } catch (error) {
-      console.error("Error analyzing resume:", error);
-      alert("Failed to analyze resume. Make sure the backend is running!");
+      console.error('Error analyzing resume:', error);
+      alert('Failed to analyze resume. Make sure the backend is running!');
     } finally {
       setIsLoading(false);
     }
   };
 
-  const resolvedFoundSkills = roadmapData?.found_skills || [];
+  const handleSkillClick = async (skill) => {
+    if (!skill) {
+      return;
+    }
+
+    setSelectedSkill(skill);
+    setIsDetailsLoading(true);
+    setDetailsError('');
+
+    try {
+      const params = new URLSearchParams({
+        skill_name: skill,
+        role_name: roadmapData?.name || 'Unknown Role',
+      });
+      const endpoints = [
+        `http://localhost:8000/skill-details?${params.toString()}`,
+        `http://127.0.0.1:8000/skill-details?${params.toString()}`,
+      ];
+
+      let details = null;
+      let lastError = null;
+
+      for (const endpoint of endpoints) {
+        try {
+          const response = await fetch(endpoint);
+          if (!response.ok) {
+            lastError = new Error(`Skill details request failed (${response.status}).`);
+            continue;
+          }
+          details = await response.json();
+          break;
+        } catch (requestError) {
+          lastError = requestError;
+        }
+      }
+
+      if (!details) {
+        throw lastError || new Error('Could not load skill details.');
+      }
+
+      setSkillDetails(details);
+      window.scrollTo({
+        top: roadmapRef.current?.offsetTop || 0,
+        behavior: 'smooth',
+      });
+    } catch (error) {
+      console.error('Error fetching skill details:', error);
+      setSkillDetails(null);
+      setDetailsError('Unable to load skill details right now.');
+      window.scrollTo({
+        top: roadmapRef.current?.offsetTop || 0,
+        behavior: 'smooth',
+      });
+    } finally {
+      setIsDetailsLoading(false);
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-200 p-8">
-      <div className="max-w-4xl mx-auto mb-12 bg-slate-900/50 p-6 rounded-xl border border-slate-800 shadow-lg">
-        <h1 className="text-2xl font-semibold mb-6 text-white text-center">Resume Analyzer</h1>
-        
-        <form onSubmit={handleAnalyze} className="flex flex-col md:flex-row gap-4 items-end">
-          <div className="flex-1 w-full">
-            <label className="block text-sm text-slate-400 mb-2">Target Role</label>
-            <div className="relative">
-              <input
-                type="text"
-                value={roleQuery}
-                onChange={(e) => {
-                  setRoleQuery(e.target.value);
-                  setSelectedRole('');
-                  setIsRoleDropdownOpen(true);
-                }}
-                onFocus={() => setIsRoleDropdownOpen(true)}
-                onBlur={() => {
-                  setTimeout(() => setIsRoleDropdownOpen(false), 100);
-                }}
-                placeholder="Search roles..."
-                className="w-full bg-slate-800 border border-slate-700 text-white rounded p-2 focus:outline-none focus:border-[#0000FF]"
-              />
+    <main className="bg-[var(--color-page)] text-[var(--color-ink)]">
+      <HeroSection
+        roles={roles}
+        roleQuery={roleQuery}
+        selectedRole={selectedRole}
+        selectedFile={file}
+        isRoleDropdownOpen={isRoleDropdownOpen}
+        filteredRoles={filteredRoles}
+        onRoleQueryChange={(query) => {
+          setRoleQuery(query);
+          setSelectedRole('');
+          setIsRoleDropdownOpen(true);
+        }}
+        onRoleSelect={handleRoleSelect}
+        onRoleFocus={() => setIsRoleDropdownOpen(true)}
+        onRoleBlur={() => setTimeout(() => setIsRoleDropdownOpen(false), 100)}
+        onFileChange={handleFileChange}
+        onFileDrop={applySelectedFile}
+        onClearFile={() => setFile(null)}
+        onAnalyze={handleAnalyze}
+        isLoading={isLoading}
+      />
 
-              {isRoleDropdownOpen && (
-                <div className="absolute z-20 mt-2 w-full max-h-60 overflow-y-auto rounded-lg border border-slate-700 bg-slate-800/80 backdrop-blur-md shadow-xl">
-                  {filteredRoles.length > 0 ? (
-                    filteredRoles.map((role, idx) => (
-                      <button
-                        key={idx}
-                        type="button"
-                        onMouseDown={() => handleRoleSelect(role)}
-                        className="w-full text-left px-3 py-2 text-slate-200 hover:bg-slate-700/70 transition-colors"
-                      >
-                        {role}
-                      </button>
-                    ))
-                  ) : (
-                    <div className="px-3 py-2 text-slate-400 text-sm">
-                      No matching roles found.
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-          </div>
+      <OrbitalSkillViewer
+        key={roadmapData?.record_id || roadmapData?.name || 'orbital-empty'}
+        roleData={roadmapData}
+        foundSkills={roadmapData?.found_skills || []}
+        activeCategory={activeCategory}
+        onCategoryChange={setActiveCategory}
+        onSkillClick={handleSkillClick}
+        isDetailsLoading={isDetailsLoading}
+        sectionRef={skillViewerRef}
+      />
 
-          <div className="flex-1 w-full">
-            <label className="block text-sm text-slate-400 mb-2">Upload Resume (PDF/TXT)</label>
-            <input 
-              type="file" 
-              accept=".pdf,.txt"
-              onChange={handleFileChange}
-              className="w-full bg-slate-800 border border-slate-700 text-slate-300 rounded p-1.5 file:bg-slate-700 file:text-white file:border-0 file:px-4 file:py-1 file:rounded file:mr-4 hover:file:bg-slate-600 cursor-pointer"
-            />
-          </div>
-
-          <button 
-            type="submit" 
-            disabled={isLoading}
-            className="w-full md:w-auto px-8 py-2.5 bg-[#0000FF] hover:bg-blue-600 text-white rounded font-medium transition-colors disabled:bg-slate-600"
-          >
-            {isLoading ? "Analyzing..." : "Generate Roadmap"}
-          </button>
-        </form>
+      <div ref={roadmapRef}>
+        <SkillRoadmap
+          selectedSkill={selectedSkill}
+          selectedSkillDetails={skillDetails}
+          detailsError={detailsError}
+          isDetailsLoading={isDetailsLoading}
+        />
       </div>
 
-      {/* Here is where we pass the real data into your beautiful UI! */}
-      <SkillPath roleData={roadmapData} foundSkills={resolvedFoundSkills} />
-      
-    </div>
+      <FooterSection />
+    </main>
   );
 }
 

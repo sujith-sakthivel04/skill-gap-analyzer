@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import SkillDetailsDrawer from './SkillDetailsDrawer';
+const MotionDiv = motion.div;
 
 const SkillPath = ({ roleData, foundSkills = [] }) => {
   // 1. Crash-proof fallback
@@ -115,14 +116,14 @@ const SkillPath = ({ roleData, foundSkills = [] }) => {
           <p className="text-slate-400 mt-2">Dependency-aware progression path</p>
         </div>
 
-        <motion.div 
+        <MotionDiv 
           className="relative border-l-2 border-slate-700 ml-4 md:ml-8"
           variants={containerVariants}
           initial="hidden"
           animate="show"
         >
           {stages.map((stage, index) => (
-            <motion.div key={index} className="mb-12 pl-8 relative" variants={itemVariants}>
+            <MotionDiv key={index} className="mb-12 pl-8 relative" variants={itemVariants}>
               {/* Timeline Dot */}
               <div className={`absolute w-4 h-4 rounded-full -left-[9px] top-1 bg-slate-900 border-2 ${stage.borderColor} ${stage.glow}`}></div>
               
@@ -158,9 +159,9 @@ const SkillPath = ({ roleData, foundSkills = [] }) => {
                   })()
                 ))}
               </div>
-            </motion.div>
+            </MotionDiv>
           ))}
-        </motion.div>
+        </MotionDiv>
       </div>
 
       <SkillDetailsDrawer

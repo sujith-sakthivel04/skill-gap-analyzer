@@ -1,12 +1,14 @@
 import React from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+const MotionDiv = motion.div;
+const MotionAside = motion.aside;
 
 const SkillDetailsDrawer = ({ isOpen, onClose, skillName, details, isLoading, error }) => {
   return (
     <AnimatePresence>
       {isOpen && (
         <>
-          <motion.div
+          <MotionDiv
             className="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-40"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -14,14 +16,14 @@ const SkillDetailsDrawer = ({ isOpen, onClose, skillName, details, isLoading, er
             onClick={onClose}
           />
 
-          <motion.aside
+          <MotionAside
             className="fixed top-0 right-0 h-full w-full max-w-xl bg-slate-900/95 backdrop-blur-md border-l border-slate-800 z-50 shadow-2xl"
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'tween', duration: 0.28, ease: 'easeOut' }}
           >
-            <motion.div
+            <MotionDiv
               className="h-full overflow-y-auto p-6 md:p-8"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -65,8 +67,8 @@ const SkillDetailsDrawer = ({ isOpen, onClose, skillName, details, isLoading, er
                   </div>
                 </>
               )}
-            </motion.div>
-          </motion.aside>
+            </MotionDiv>
+          </MotionAside>
         </>
       )}
     </AnimatePresence>
