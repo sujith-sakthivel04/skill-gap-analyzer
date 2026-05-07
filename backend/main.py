@@ -5,9 +5,9 @@ import shutil
 import os
 import tempfile
 
-from backend.logic import extract_text_from_pdf, generate_roadmap, get_skill_details
-from backend.database import SessionLocal, engine
-from backend import models
+from logic import extract_text_from_pdf, generate_roadmap, get_skill_details
+from database import SessionLocal, engine
+import models
 
 models.Base.metadata.create_all(bind=engine)
 
