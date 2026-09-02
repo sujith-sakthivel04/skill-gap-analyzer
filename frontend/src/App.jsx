@@ -3,6 +3,13 @@ import HeroSection from './components/HeroSection';
 import OrbitalSkillViewer from './components/OrbitalSkillViewer';
 import SkillRoadmap from './components/SkillRoadmap';
 import FooterSection from './components/FooterSection';
+import {
+  getAllProgress,
+  saveSkillProgress,
+  clearSkillProgress,
+} from './utils/progressStorage';
+
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 function App() {
   const [roles, setRoles] = useState([]);
@@ -17,12 +24,25 @@ function App() {
   const [skillDetails, setSkillDetails] = useState(null);
   const [isDetailsLoading, setIsDetailsLoading] = useState(false);
   const [detailsError, setDetailsError] = useState('');
+  const [learningProgress, setLearningProgress] = useState(() => getAllProgress());
 
   const skillViewerRef = useRef(null);
   const roadmapRef = useRef(null);
 
+  const currentRoleName = roadmapData?.name || selectedRole || 'Unknown Role';
+
+  const handleProgressChange = (roleName, skillName, completedStages, totalStages) => {
+    const updated = saveSkillProgress(roleName, skillName, completedStages, totalStages);
+    setLearningProgress({ ...updated });
+  };
+
+  const handleResetProgress = (roleName, skillName) => {
+    const updated = clearSkillProgress(roleName, skillName);
+    setLearningProgress({ ...updated });
+  };
+
   useEffect(() => {
-    fetch('http://localhost:8000/roles')
+    fetch(`${API_URL}/roles`)
       .then((res) => res.json())
       .then((data) => {
         setRoles(data.roles || []);
@@ -92,7 +112,7 @@ function App() {
     formData.append('role', selectedRole);
 
     try {
-      const response = await fetch('http://localhost:8000/analyze-resume', {
+      const response = await fetch(`${API_URL}/analyze-resume`, {
         method: 'POST',
         body: formData,
       });
@@ -143,8 +163,7 @@ function App() {
         role_name: roadmapData?.name || 'Unknown Role',
       });
       const endpoints = [
-        `http://localhost:8000/skill-details?${params.toString()}`,
-        `http://127.0.0.1:8000/skill-details?${params.toString()}`,
+        `${API_URL}/skill-details?${params.toString()}`
       ];
 
       let details = null;
@@ -214,6 +233,8 @@ function App() {
         key={roadmapData?.record_id || roadmapData?.name || 'orbital-empty'}
         roleData={roadmapData}
         foundSkills={roadmapData?.found_skills || []}
+        roleName={currentRoleName}
+        learningProgress={learningProgress}
         activeCategory={activeCategory}
         onCategoryChange={setActiveCategory}
         onSkillClick={handleSkillClick}
@@ -225,6 +246,10 @@ function App() {
         <SkillRoadmap
           selectedSkill={selectedSkill}
           selectedSkillDetails={skillDetails}
+          roleName={currentRoleName}
+          learningProgress={learningProgress}
+          onProgressChange={handleProgressChange}
+          onResetProgress={handleResetProgress}
           detailsError={detailsError}
           isDetailsLoading={isDetailsLoading}
         />

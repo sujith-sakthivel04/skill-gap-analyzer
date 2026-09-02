@@ -1,35 +1,39 @@
-from fastapi import FastAPI, UploadFile, File, Form, Depends, HTTPException
+from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from sqlalchemy.orm import Session
 import shutil
 import os
 import tempfile
 
-from logic import extract_text_from_pdf, generate_roadmap, get_skill_details
-from database import SessionLocal, engine
-import models
-
-models.Base.metadata.create_all(bind=engine)
+from backend.logic import extract_text_from_pdf, generate_roadmap, get_skill_details
 
 app = FastAPI(title="Skill Gap Analyzer API")
+
+FRONTEND_URL = os.getenv("FRONTEND_URL", "https://skill-gap-analyzer-theta.vercel.app")
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-    "http://localhost:5173",
-    "https://skill-gap-analyzer-theta.vercel.app"
+        "http://localhost:5173",
+        FRONTEND_URL
     ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+@app.get("/health")
+def health_check():
+    """
+    Health check endpoint for Render deployment.
+    """
+    return {"status": "ok"}
+
+@app.get("/")
+def read_root():
+    """
+    Root endpoint.
+    """
+    return {"message": "Skill Gap Analyzer API is running"}
 
 @app.get("/roles")
 def get_roles():
@@ -46,11 +50,11 @@ def get_roles():
 @app.post("/analyze-resume")
 async def analyze_resume(
     file: UploadFile = File(...),
-    role: str = Form(default=None),   # <-- role name from frontend dropdown
-    db: Session = Depends(get_db)
+    role: str = Form(default=None)   # <-- role name from frontend dropdown
 ):
     """
-    Accepts a PDF + target role name, runs the NLP pipeline, saves to PostgreSQL.
+    Accepts a PDF + target role name, runs the NLP pipeline on a temporary file,
+    and returns the analysis result without persistent database storage.
     """
     if not file.filename or not file.filename.lower().endswith(".pdf"):
         raise HTTPException(status_code=400, detail="Only PDF files are supported.")
@@ -70,19 +74,7 @@ async def analyze_resume(
         # Pass role name into generate_roadmap
         analysis_result = generate_roadmap(raw_text, target_role_name=role)
 
-        db_record = models.ResumeAnalysis(
-            filename=file.filename,
-            found_skills=analysis_result["found_skills"],
-            roadmap=analysis_result["roadmap"]
-        )
-
-        db.add(db_record)
-        db.commit()
-        db.refresh(db_record)
-
         return {
-            "record_id": db_record.id,
-            "filename": db_record.filename,
             "name": analysis_result.get("name", role or "Unknown"),
             "core_skills": analysis_result.get("core_skills", []),
             "advanced_skills": analysis_result.get("advanced_skills", []),
@@ -106,4 +98,4 @@ def skill_details(skill_name: str, role_name: str = "Unknown Role"):
     """
     if not skill_name.strip():
         raise HTTPException(status_code=400, detail="skill_name is required.")
-    return get_skill_details(skill_name=skill_name, role_name=role_name)
+    return get_skill_details(skill_name=skill_name, role_name=role_name)

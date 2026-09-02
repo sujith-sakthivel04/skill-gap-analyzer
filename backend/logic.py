@@ -271,7 +271,7 @@ def _generate_skill_details_with_fallback(skill_name, role_name):
 
         return {
             "description": description.strip(),
-            "subtopics": cleaned_subtopics[:5]
+            "subtopics": cleaned_subtopics
         }
     except Exception as e:
         if response is not None and getattr(response, "text", None):

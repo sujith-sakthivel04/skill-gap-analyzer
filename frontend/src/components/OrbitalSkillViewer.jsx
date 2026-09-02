@@ -75,6 +75,8 @@ const mobileOrbitPath = 'M232 0C182 46 142 99 96 164C55 225 39 287 52 350C66 413
 function OrbitalSkillViewer({
   roleData,
   foundSkills,
+  roleName,
+  learningProgress,
   activeCategory,
   onCategoryChange,
   onSkillClick,
@@ -87,8 +89,8 @@ function OrbitalSkillViewer({
   const normalizedFoundSkills = new Set((foundSkills || []).map((skill) => String(skill).trim().toLowerCase()));
   const activeKey = categoryMap[activeCategory];
   const activeSkills = activeKey ? roleData?.[activeKey] || [] : [];
-  const selectedRoleName = roleData?.name || 'Selected role';
-  const roleVideo = getRoleVideo(selectedRoleName);
+  const effectiveRoleName = roleName || roleData?.name || 'Selected role';
+  const roleVideo = getRoleVideo(effectiveRoleName);
   const previewCategory =
     categories.find((category) => category.key === hoveredCategory) ||
     categories.find((category) => category.key === activeCategory) ||
@@ -158,7 +160,7 @@ function OrbitalSkillViewer({
                       Role video
                     </p>
                     <p className="mt-3 max-w-xl text-lg leading-7 text-[var(--color-muted)]">
-                      Start with a quick YouTube overview for {selectedRoleName}, then jump into the orbit
+                      Start with a quick YouTube overview for {effectiveRoleName}, then jump into the orbit
                       when you want to inspect the required skills.
                     </p>
                   </div>
@@ -173,7 +175,7 @@ function OrbitalSkillViewer({
                       <iframe
                         className="h-full w-full"
                         src={roleVideo.embedUrl}
-                        title={`${selectedRoleName} YouTube overview`}
+                        title={`${effectiveRoleName} YouTube overview`}
                         loading="lazy"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowFullScreen
@@ -212,7 +214,7 @@ function OrbitalSkillViewer({
                         rel="noreferrer"
                         className="inline-flex min-h-[48px] items-center gap-2 rounded-full border border-[var(--color-line)] bg-[var(--color-accent-faint)] px-5 py-3 text-sm font-semibold text-[var(--color-accent-strong)] transition hover:border-[var(--color-accent)]"
                       >
-                        More {selectedRoleName} videos
+                        More {effectiveRoleName} videos
                       </a>
                     </div>
                   </div>
@@ -248,6 +250,44 @@ function OrbitalSkillViewer({
                   {activeSkills.map((skill, index) => {
                     const isFound = normalizedFoundSkills.has(String(skill).trim().toLowerCase());
 
+                    // Calculate role-aware learning status
+                    const skillProg = learningProgress?.[effectiveRoleName]?.[skill] || null;
+                    const completedCount = Array.isArray(skillProg?.completedStages) ? skillProg.completedStages.length : 0;
+                    const totalStages = typeof skillProg?.totalStages === 'number' ? skillProg.totalStages : 0;
+                    const isLearned = totalStages > 0 && completedCount >= totalStages;
+                    const isInProgress = completedCount > 0 && !isLearned;
+                    const percent = totalStages > 0 ? Math.round((completedCount / totalStages) * 100) : 0;
+
+                    let badgeText = '';
+                    let badgeClass = '';
+                    let badgeSubtitle = '';
+
+                    if (isFound) {
+                      if (isLearned) {
+                        badgeText = 'Completed';
+                        badgeClass = 'bg-emerald-100 text-emerald-800 border border-emerald-300 font-bold';
+                      } else if (isInProgress) {
+                        badgeText = 'Verified';
+                        badgeSubtitle = `Learning ${percent}%`;
+                        badgeClass = 'bg-[rgba(16,185,129,0.12)] text-emerald-700 border border-emerald-200';
+                      } else {
+                        badgeText = 'Verified';
+                        badgeClass = 'bg-[rgba(16,185,129,0.12)] text-emerald-700';
+                      }
+                    } else {
+                      if (isLearned) {
+                        badgeText = 'Learned';
+                        badgeClass = 'bg-emerald-100 text-emerald-800 border border-emerald-300 font-bold';
+                      } else if (isInProgress) {
+                        badgeText = 'In Progress';
+                        badgeSubtitle = percent > 0 ? `${percent}% done` : '';
+                        badgeClass = 'bg-amber-100 text-amber-900 border border-amber-300 font-bold';
+                      } else {
+                        badgeText = 'Missing';
+                        badgeClass = 'bg-[var(--color-accent-faint)] text-[var(--color-accent-strong)]';
+                      }
+                    }
+
                     return (
                       <MotionButton
                         key={skill}
@@ -262,19 +302,32 @@ function OrbitalSkillViewer({
                         <div>
                           <p className="text-lg font-medium text-[var(--color-ink)]">{skill}</p>
                           <p className="mt-1 text-sm text-[var(--color-muted)]">
-                            {isFound ? 'Already evidenced in the uploaded resume.' : 'Recommended next area to strengthen.'}
+                            {isFound
+                              ? isLearned
+                                ? 'Evidenced in resume • Learning journey completed.'
+                                : isInProgress
+                                ? `Evidenced in resume • In progress (${completedCount}/${totalStages} stages).`
+                                : 'Already evidenced in the uploaded resume.'
+                              : isLearned
+                              ? 'Missing from resume • Completed learning journey!'
+                              : isInProgress
+                              ? `Missing from resume • In progress (${completedCount}/${totalStages} stages).`
+                              : 'Recommended next area to strengthen.'}
                           </p>
                         </div>
                         <div className="flex items-center gap-3">
-                          <span
-                            className={`rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] ${
-                              isFound
-                                ? 'bg-[rgba(16,185,129,0.12)] text-emerald-700'
-                                : 'bg-[var(--color-accent-faint)] text-[var(--color-accent-strong)]'
-                            }`}
-                          >
-                            {isFound ? 'Verified' : 'Missing'}
-                          </span>
+                          <div className="flex flex-col items-end">
+                            <span
+                              className={`rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] ${badgeClass}`}
+                            >
+                              {badgeText}
+                            </span>
+                            {badgeSubtitle && (
+                              <span className="mt-1 text-[0.7rem] font-bold text-[var(--color-accent-strong)]">
+                                {badgeSubtitle}
+                              </span>
+                            )}
+                          </div>
                           <ArrowUpRight className="h-4 w-4 text-[var(--color-muted)] transition group-hover:text-[var(--color-accent-strong)]" />
                         </div>
                       </MotionButton>
